@@ -14,36 +14,37 @@ cursor = conn.cursor()
 
 # Beispiel: Rezepte auslesen (Tabellenname kann je nach Version variieren!)
 cursor.execute("""
-    SELECT 
-        --ID,        
-        Sudnummer as id,
-        Sudname as name,
+    SELECT                
+        Sudnummer           as id,
+        Sudname             as name,
+        Round(SW, 1)        as stammwuerze,       
+        Round(ibu, 1)   as ibu,
+        Round(erg_Farbe, 0) as farbe,               
+        Round(erg_Alkohol, 1)   as alkohol,
+        strftime('%d.%m.%Y', Braudatum) as Braudatum,
+        strftime('%d.%m.%Y', Abfuelldatum) as Abfuelldatum
+        --ID,
         --Kategorie,
         --Anlage,
-        --Menge,
-        Round(SW, 1) as stammwuerze,
+        --Menge,        
         --highGravityFaktor,
         --FaktorHauptguss,
         --Wasserprofil,
         --RestalkalitaetSoll,
-        --CO2,
-        Round(IBU, 1) as ibu,
+        --CO2,        
         --berechnungsArtHopfen,
         --Kochdauer,
         --Nachisomerisierungszeit,
         --Reifezeit,
         --KostenWasserStrom,
         --Kommentar,
-        --Status,
-        --Braudatum,
-        --Abfuelldatum,
+        --Status,        
         --Erstellt,
         --Gespeichert,
         --erg_S_Gesamt,
         --erg_W_Gesamt,
         --erg_WHauptguss,
-        --erg_WNachguss,
-        round(erg_Farbe, 0) as farbe,
+        --erg_WNachguss,        
         --SWKochende,
         --SWAnstellen,
         --SchnellgaerprobeAktiv,
@@ -59,8 +60,7 @@ cursor.execute("""
         --erg_AbgefuellteBiermenge,
         --erg_Sudhausausbeute,
         --erg_EffektiveAusbeute,
-        --erg_Preis,
-        Round(erg_Alkohol, 1) as alkohol
+        --erg_Preis,        
         --AusbeuteIgnorieren,
         --MerklistenID,
         --Sudhausausbeute,
@@ -82,7 +82,7 @@ cursor.execute("""
         --BemerkungWasseraufbereitung,
         --MengeHefestarter,
         --SWHefestarter
-  FROM Sud
+  FROM Sud Where braudatum IS NOT NULL
 """)
 rezepte = cursor.fetchall()
 
@@ -93,14 +93,14 @@ with open(overview_path, "w", encoding="utf-8") as f:
     f.write("<h2><a href=\"https://thomas-lehmenkoetter.github.io/Homebrew/index.html\">Home</a></h2>\n")
     f.write("<h1>Meine Braurezepte</h1><ul>\n")
     for r in rezepte:
-        rid, name, _, _, _, _ = r
+        rid, name, _, _, _, _, _, _ = r
         filename = f"Rezept_{rid}_{name}.html"
         f.write(f"<li><a href='{filename}'>{rid}_{name}</a></li>\n")
     f.write("</ul></body></html>\n")
 
 # Einzelseiten pro Rezept erstellen
 for r in rezepte:
-    rid, name, stammwuerze, alkohol, ibu, farbe = r
+    rid, name, stammwuerze, alkohol, ibu, farbe, braudatum, abfuelldatum = r
     filename = os.path.join(OUTPUT_DIR, f"Rezept_{rid}_{name}.html")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("<!DOCTYPE html><html><head><meta charset='UTF-8'></head><body>\n")
@@ -110,6 +110,8 @@ for r in rezepte:
         f.write(f"<p><strong>Alkohol:</strong> {alkohol} % vol</p>\n")
         f.write(f"<p><strong>Bittere:</strong> {ibu} IBU</p>\n")
         f.write(f"<p><strong>Farbe:</strong> {farbe} EBC</p>\n")
+        f.write(f"<p><strong>Braudatum:</strong> {braudatum}</p>\n")
+        f.write(f"<p><strong>Abfülldatum:</strong> {abfuelldatum}</p>\n")
         f.write("</body></html>\n")
 
 conn.close()
