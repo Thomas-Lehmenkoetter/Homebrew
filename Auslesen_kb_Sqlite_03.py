@@ -103,7 +103,7 @@ with open(overview_path, "w", encoding="utf-8") as f:
     f.write("<h1>Meine Braurezepte</h1><ul>\n")
     for r in rezepte:
         filename = f"Rezept_{r['sudnummer']}_{r['name']}.html"
-        f.write(f"<li><a href='{filename}'>{r['id']} – {r['name']}</a></li>\n")
+        f.write(f"<li><a href='{filename}'>{r['sudnummer']} – {r['name']}</a></li>\n")
     f.write("</ul></body></html>\n")
 
 # Einzelseiten pro Rezept erstellen
