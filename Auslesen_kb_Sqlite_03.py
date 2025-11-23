@@ -79,7 +79,7 @@ cursor.execute("""
         Cast(Round(Sud.IBU, 1) as Integer) as ibu,
         Cast(Round(Sud.erg_Farbe, 0) as Integer) as farbe,
         Round(Sud.erg_Alkohol, 1) as alkohol,
-        Round(Sud.Menge, 1) as menge,
+        Cast(Round(Sud.Menge) as Integer) as menge,
         Strftime('%d.%m.%Y', Sud.Braudatum) as braudatum,
         Strftime('%d.%m.%Y', Sud.Abfuelldatum) as abfuelldatum,
         Cast(ML.TotalMalz as Integer) as TotalMalz,
@@ -117,6 +117,7 @@ for r in rezepte:
         f.write(f"<p><strong>Alkohol:</strong> {r['alkohol']} % vol</p>\n")
         f.write(f"<p><strong>Bittere:</strong> {r['ibu']} IBU</p>\n")
         f.write(f"<p><strong>Farbe:</strong> {r['farbe']} EBC</p>\n")
+        f.write(f"<p><strong>Menge:</strong> {r['menge']} l</p>\n")
         f.write(f"<p><strong>Braudatum:</strong> {r['braudatum']}</p>\n")
         f.write(f"<p><strong>Abfülldatum:</strong> {r['abfuelldatum']}</p>\n")
         f.write(f"<p><strong>Malz Menge:</strong> {r['TotalMalz']} kg</p>\n")
