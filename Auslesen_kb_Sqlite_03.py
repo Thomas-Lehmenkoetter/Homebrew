@@ -98,18 +98,17 @@ rezepte = cursor.fetchall()
 # Übersichtseite erstellen
 overview_path = os.path.join(OUTPUT_DIR, "UebersichtBraurezepte.html")
 with open(overview_path, "w", encoding="utf-8") as f:
-    f.write("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Braurezepte</title></head><body>\n")
-    #f.write("<h2><a href=\"https://thomas-lehmenkoetter.github.io/Homebrew/index.html\">Home</a></h2>\n")
+    f.write("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Braurezepte</title></head><body>\n")    
     f.write("<h2><a href=\"../index.html\">Home</a></h2>\n")
     f.write("<h1>Meine Braurezepte</h1><ul>\n")
     for r in rezepte:
-        filename = f"Rezept_{r['id']}_{r['name']}.html"
+        filename = f"Rezept_{r['sudnummer']}_{r['name']}.html"
         f.write(f"<li><a href='{filename}'>{r['id']} – {r['name']}</a></li>\n")
     f.write("</ul></body></html>\n")
 
 # Einzelseiten pro Rezept erstellen
 for r in rezepte:
-    filename = os.path.join(OUTPUT_DIR, f"Rezept_{r['id']}_{r['name']}.html")
+    filename = os.path.join(OUTPUT_DIR, f"Rezept_{r['sudnummer']}_{r['name']}.html")
     with open(filename, "w", encoding="utf-8") as f:
         f.write("<!DOCTYPE html><html><head><meta charset='UTF-8'></head><body>\n")
         f.write(f"<h2><a href='UebersichtBraurezepte.html'>Übersicht Braurezepte</a></h2>\n")
