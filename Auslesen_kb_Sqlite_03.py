@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 # Pfad zu deiner SQLite-Datenbank
-DB_PATH = "/home/Thomas/Dokumente/Dokumente D (symlink)/Bier brauen/Programme/Kleiner-Brauhelfer/kb_daten_V2.6.sqlite"
+DB_PATH = "/media/Volume/Dokumente/Bier brauen/Programme/Kleiner-Brauhelfer/kb_daten_V2.6.sqlite"
 
 # Zielordner für die HTML-Dateien
 OUTPUT_DIR = "html_rezepte"
