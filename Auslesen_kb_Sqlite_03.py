@@ -92,6 +92,7 @@ cursor.execute("""
 	Left Join Hopfenliste HL on Sud.ID = HL.SudID
 	Left Join Hefeliste HL2 on Sud.ID = HL2.SudID
 	Where Sud.braudatum is not null
+    order by Sud.Sudnummer asc
 """)
 rezepte = cursor.fetchall()
 
