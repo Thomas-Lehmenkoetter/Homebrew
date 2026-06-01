@@ -4,8 +4,8 @@ import os
 # Pfad zu deiner SQLite-Datenbank
 DB_PATH = "/media/Volume/Dokumente/Bier brauen/Programme/Kleiner-Brauhelfer/kb_daten_V2.6.sqlite"
 
-# Zielordner für die HTML-Dateien
-OUTPUT_DIR = "html_rezepte"
+# Zielordner für die HTML-Dateien --angepasst für Zwischenspeicherung
+OUTPUT_DIR = "html_rezepte/new"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Verbindung zur Datenbank
